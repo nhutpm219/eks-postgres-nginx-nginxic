@@ -1,0 +1,109 @@
+Apply complete! Resources: 54 added, 0 changed, 0 destroyed.
+
+Outputs:
+
+cluster_endpoint = "https://43654E36844DC333DEE451F9862CA8F1.gr7.ap-southeast-1.eks.amazonaws.com"
+cluster_id = "nhutpm-eks-XUPGh"
+cluster_name = "nhutpm-eks-XUPGh"
+cluster_security_group_id = "sg-010cc63c904af7791"
+config_map_aws_auth = [
+  {
+    "binary_data" = tomap(null) /* of string */
+    "data" = tomap({
+      "mapAccounts" = <<-EOT
+      []
+      
+      EOT
+      "mapRoles" = <<-EOT
+      - "groups":
+        - "system:bootstrappers"
+        - "system:nodes"
+        "rolearn": "arn:aws:iam::822594955320:role/nhutpm-eks-XUPGh2021050904110549890000000c"
+        "username": "system:node:{{EC2PrivateDNSName}}"
+      
+      EOT
+      "mapUsers" = <<-EOT
+      []
+      
+      EOT
+    })
+    "id" = "kube-system/aws-auth"
+    "metadata" = tolist([
+      {
+        "annotations" = tomap(null) /* of string */
+        "generate_name" = ""
+        "generation" = 0
+        "labels" = tomap({
+          "app.kubernetes.io/managed-by" = "Terraform"
+          "terraform.io/module" = "terraform-aws-modules.eks.aws"
+        })
+        "name" = "aws-auth"
+        "namespace" = "kube-system"
+        "resource_version" = "959"
+        "self_link" = ""
+        "uid" = "a50f846d-0243-4ecc-8c62-cfb8c1e883de"
+      },
+    ])
+  },
+]
+kubectl_config = <<EOT
+apiVersion: v1
+preferences: {}
+kind: Config
+
+clusters:
+- cluster:
+    server: https://43654E36844DC333DEE451F9862CA8F1.gr7.ap-southeast-1.eks.amazonaws.com
+    certificate-authority-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUN5RENDQWJDZ0F3SUJBZ0lCQURBTkJna3Foa2lHOXcwQkFRc0ZBREFWTVJNd0VRWURWUVFERXdwcmRXSmwKY201bGRHVnpNQjRYRFRJeE1EVXdPVEEwTURjME5sb1hEVE14TURVd056QTBNRGMwTmxvd0ZURVRNQkVHQTFVRQpBeE1LYTNWaVpYSnVaWFJsY3pDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUJBTjkzClZFT3dsSjJTSS8wOVI5ODF1czhoLzJ6M1JWTUdPWXNuUmRlTTFVdWxiMmtFbDQzOTlUMEh6RWdITWlSZkNIcWwKQTNuVHRZRlUrQTVmRlVqWVJxdXg5Z1VNZnU3ZENkS2t0bS84RGJRRlloRnk5dEhodmFqOFRyY2VmWVIxYWVBdwpjVFZpampZM3orZlhPaWZWMU1GMXk0UTUvaGdNWDJPRWQ3cEl5OHdMNEswNDQ3OVp2d01QQzZDZkxZNGZmbS9RClgrbk1JN2VpVlZxMm5RUktBVFJUdXhWM201d2Y1VXdxVUtJdEwrbVRIak9NKzE1eWFFelB2RGtNeHhMV2Z3OEwKU2Jid1dqeTBNZzlCUEErcW5sOGlSbmFwaFp4QnJ0MERaMTNRZHJmUGgrbTVVb0srZ0RyN3lYZ04zUkh2TW9LZgpUQ0tsS0NZYUkwbVhXSVRQTDVzQ0F3RUFBYU1qTUNFd0RnWURWUjBQQVFIL0JBUURBZ0trTUE4R0ExVWRFd0VCCi93UUZNQU1CQWY4d0RRWUpLb1pJaHZjTkFRRUxCUUFEZ2dFQkFFOUg3eis0anAzU2djMXM3aEkzTFFiSlNEczQKNFA4bFVGdVZOdytWMytGT1Nhc05Fc2I1U3IvbmFLaVhZS25rKytYWFBkV25HUGcxSlVtR1IvMnNSRjBwelRJWQowU09UeTlhK2svWUNzczZBVDhmSk9yQVNsWE04aGJkbmhvckl2SENJUWd1aFlvdTFmN0t3bXR3aTJaVTl0dm1JCnVFWE4weVRFMjRGbko1dUQwdU5VL09UMmNFZFNwcnNES3dUT3ROOGt4RUlFbUw4Wm9GQU1jd05vQXl2NmJyQWIKZHRicVM4NjBzdWVSRC9aNFlkTjk3bXlxWHVTcGxLcjhCWFhXaGJLSEE0T0prZlNMMW81cTdEL1RRM0lUa0JoNAplL3ZzYmg5ZEVyc3IwZTRwOW9VcEhvL0E3S1Z4c0F4R0cyUGlXOTZ6S2g0azZDQWU1L1hza0paRnNGST0KLS0tLS1FTkQgQ0VSVElGSUNBVEUtLS0tLQo=
+  name: eks_nhutpm-eks-XUPGh
+
+contexts:
+- context:
+    cluster: eks_nhutpm-eks-XUPGh
+    user: eks_nhutpm-eks-XUPGh
+  name: eks_nhutpm-eks-XUPGh
+
+current-context: eks_nhutpm-eks-XUPGh
+
+users:
+- name: eks_nhutpm-eks-XUPGh
+  user:
+    exec:
+      apiVersion: client.authentication.k8s.io/v1alpha1
+      command: aws-iam-authenticator
+      args:
+        - "token"
+        - "-i"
+        - "nhutpm-eks-XUPGh"
+
+EOT
+region = "ap-southeast-1"
+
+
+
+
+
+
+
+nhutpm@nhutpm:~/terraform-practice02$ kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep service-controller-token | awk '{print $1}')
+Name:         service-controller-token-q6sbb
+Namespace:    kube-system
+Labels:       <none>
+Annotations:  kubernetes.io/service-account.name=service-controller
+              kubernetes.io/service-account.uid=ea8f3d46-7b66-4778-8d5c-eaa97b487d61
+
+Type:  kubernetes.io/service-account-token
+
+Data
+====
+namespace:  11 bytes
+token:      eyJhbGciOiJSUzI1NiIsImtpZCI6IlJBNlFZMUZzckFTZFRKX0tpNlJOTXJ1Q3RJNTA0bVRTSXhMQXc1LWtVcTAifQ.eyJpc3MiOiJrdWJlcm5ldGVzL3NlcnZpY2VhY2NvdW50Iiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9uYW1lc3BhY2UiOiJrdWJlLXN5c3RlbSIsImt1YmVybmV0ZXMuaW8vc2VydmljZWFjY291bnQvc2VjcmV0Lm5hbWUiOiJzZXJ2aWNlLWNvbnRyb2xsZXItdG9rZW4tcTZzYmIiLCJrdWJlcm5ldGVzLmlvL3NlcnZpY2VhY2NvdW50L3NlcnZpY2UtYWNjb3VudC5uYW1lIjoic2VydmljZS1jb250cm9sbGVyIiwia3ViZXJuZXRlcy5pby9zZXJ2aWNlYWNjb3VudC9zZXJ2aWNlLWFjY291bnQudWlkIjoiZWE4ZjNkNDYtN2I2Ni00Nzc4LThkNWMtZWFhOTdiNDg3ZDYxIiwic3ViIjoic3lzdGVtOnNlcnZpY2VhY2NvdW50Omt1YmUtc3lzdGVtOnNlcnZpY2UtY29udHJvbGxlciJ9.L-baM_hxM8JpA45jAjvMF9eR8TECz233u0-5bZrNQ8IAmXg-UdNSuPjQUkLXzWWTSHz_mRkwzZPTngbT4G9YimuMWnPDXAgmIZEY544fQxfBULJ1Z3Rcr8zA3v9w6BM3iZwoUD0v_WUNpw_XohFqBu1z_-DfDEWQvu-ibK1hAH1T8a8boc9aDEz4pL-0tebCFKUsTO1VYiVIv008m36D_LgVClXwFNmVvqDUqsvWEStJk8aEAIMxo7wxJAAHdHdXq8E6UHGwUUHObj8HYwz-dYOoUkW_LUUU24a42SIK-AzYCQhHIYEbi2LvwQxuu_rVyGMUGEObnvCgDWD_rsmsJQ
+ca.crt:     1025 bytes
+
+
+CURRENT   NAME                                                                 CLUSTER                                                              AUTHINFO                                                             NAMESPACE
+          arn:aws:eks:ap-southeast-1:822594955320:cluster/nhutpm-eks-XUPGh     arn:aws:eks:ap-southeast-1:822594955320:cluster/nhutpm-eks-XUPGh     arn:aws:eks:ap-southeast-1:822594955320:cluster/nhutpm-eks-XUPGh     
+          arn:aws:eks:ap-southeast-1:822594955320:cluster/terraform-eks-demo   arn:aws:eks:ap-southeast-1:822594955320:cluster/terraform-eks-demo   arn:aws:eks:ap-southeast-1:822594955320:cluster/terraform-eks-demo   
+          arn:aws:eks:us-east-2:822594955320:cluster/education-eks-FREIDeRr    arn:aws:eks:us-east-2:822594955320:cluster/education-eks-FREIDeRr    arn:aws:eks:us-east-2:822594955320:cluster/education-eks-FREIDeRr    
+          arn:aws:eks:us-east-2:822594955320:cluster/education-eks-RmeUHLdq    arn:aws:eks:us-east-2:822594955320:cluster/education-eks-RmeUHLdq    arn:aws:eks:us-east-2:822594955320:cluster/education-eks-RmeUHLdq    
+*         minikube                                                             minikube                                                             minikube                                                             default

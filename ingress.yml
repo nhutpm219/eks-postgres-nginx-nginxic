@@ -1,0 +1,98 @@
+#---
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#metadata:
+#  name: nginx-ingress
+#spec:
+#  rules:
+#  - host: nginx01.a17b73dceb16d44ef8b6050df3fb7c45-1588267959.ap-southeast-1.elb.amazonaws.com
+#    http:
+#      paths:
+#      - backend:
+#          serviceName: nginx01
+#          servicePort: 80
+#  - host: nginx02.a17b73dceb16d44ef8b6050df3fb7c45-1588267959.ap-southeast-1.elb.amazonaws.com
+#    http:
+#      paths:
+#      - backend:
+#          serviceName: nginx02
+#          servicePort: 80
+
+#---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: simple-fanout-ingress
+#spec:
+#  rules:
+#  - host: foo.bar.com
+#    http:
+#      paths:
+#      - path: /fookubernetes.io/ingress.class: nginx
+#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#    nginx.ingress.kubernetes.io/use-regex: "true"
+#    nginx.ingress.kubernetes.io/rewrite-target: /$1
+#        pathType: Prefix
+#        backend:
+#          service:
+#            name: service1
+#            port:
+#              number: 4200
+#      - path: /bar
+#        pathType: Prefix
+#        backend:
+#          service:
+#            name: service2
+#            port:
+#              number: 8080
+
+---
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: test-ingress-3
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+  - http:
+      paths:
+      - path: /nginx01
+        pathType: Prefix
+        backend:
+          serviceName: nginx01
+          servicePort: 80
+      - path: /nginx02
+        pathType: Prefix
+        backend:
+          serviceName: nginx02
+          servicePort: 80
+      - path: /(.*)
+        pathType: Prefix
+        backend:
+          serviceName: nginx01
+          servicePort: 80
+#---
+#apiVersion: networking.k8s.io/v1beta1
+#kind: Ingress
+#metadata:
+#  name: portal-ingress
+#  namespace: default
+#  annotations:
+#    kubernetes.io/ingress.class: nginx
+#    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+#spec:
+#  rules:
+#  - http:
+#      paths:
+#      - path: /
+#        backend:
+#          serviceName: nginx01
+#          servicePort: 80
+#      - path: /app2
+#        backend:
+#          serviceName: nginx02
+#          servicePort: 80

@@ -1,0 +1,59 @@
+# update kube config after create new eks
+# aws eks update-kubeconfig --name <cluster-name>
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx01
+spec:
+  ports:
+  - port: 80
+    targetPort: 80
+    name: nginx01-port
+  selector:
+      app: nginx01
+---
+#---
+#apiVersion: v1
+#kind: PersistentVolumeClaim
+#metadata:
+#  name: nginx-pv-claim
+#  labels:
+#    app: nginx
+#spec:
+#  accessModes:
+#    - ReadWriteOnce
+#  resources:
+#    requests:
+#      storage: 1Gi
+#---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nginx01
+  labels:
+    app: nginx01
+spec:
+  selector:
+    matchLabels:
+      app: nginx01 # has to match .spec.template.metadata.labels
+      tier: frontend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        app: nginx01 # has to match .spec.selector.matchLabels
+        tier: frontend
+    spec:
+      containers:
+      - name: nginx01
+        image: nginx:1.14.2
+        env: #kubectl create secret generic postgresql-secrets --from-literal=password=admin123
+        - name: NGINX_DB_HOST
+          value: postgresql-nginx
+        - name: NGINX_DB_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: postgresql-secrets
+              key: password
+        ports:
+        - containerPort: 80

@@ -1,28 +1,28 @@
 variable "region" {
-  default     = "us-east-2"
+  default     = "ap-southeast-1"
   description = "AWS region"
 }
 
 provider "aws" {
-  region = "us-east-2"
+  region = "ap-southeast-1"
 }
 
-data "aws_availability_zones" "available" {}
-
 locals {
-  cluster_name = "education-eks-${random_string.suffix.result}"
+  cluster_name = "nhutpm-eks-${random_string.suffix.result}"
 }
 
 resource "random_string" "suffix" {
-  length  = 8
+  length  = 5
   special = false
 }
+
+data "aws_availability_zones" "available" {}
 
 module "vpc" {
   source  = "terraform-aws-modules/vpc/aws"
   version = "2.66.0"
 
-  name                 = "education-vpc"
+  name                 = "nhutpm-eks-vpc"
   cidr                 = "10.0.0.0/16"
   azs                  = data.aws_availability_zones.available.names
   private_subnets      = ["10.0.1.0/24", "10.0.2.0/24", "10.0.3.0/24"]
@@ -45,3 +45,4 @@ module "vpc" {
     "kubernetes.io/role/internal-elb"             = "1"
   }
 }
+
