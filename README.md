@@ -10,6 +10,7 @@ Terraform configuration files to provision an EKS cluster on AWS.
 - Terraform apply
 - 
 nhutpm@nhutpm:~/terraform-practice02$ kubectl get svc
+
 NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
 kubernetes   ClusterIP   172.20.0.1   <none>        443/TCP   35m
 
