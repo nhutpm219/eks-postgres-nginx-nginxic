@@ -12,18 +12,25 @@ Terraform configuration files to provision an EKS cluster on AWS.
 nhutpm@nhutpm:~/terraform-practice02$ kubectl get svc
 
 NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE
+
 kubernetes   ClusterIP   172.20.0.1   <none>        443/TCP   35m
 
 
 2. Configure kubectl
+
 - Run the following command to retrieve the access credentials for your cluster and automatically configure kubectl.
+- 
 $ aws eks --region $(terraform output -raw region) update-kubeconfig --name $(terraform output -raw cluster_name)
 
 3. Deploy and access Kubernetes Dashboard
+
 - Deploy Kubernetes Metrics Server
+
     + The Kubernetes Metrics Server, used to gather metrics such as cluster CPU and memory usage
       over time, is not deployed by default in EKS clusters.
+      
 $ wget -O v0.3.6.tar.gz https://codeload.github.com/kubernetes-sigs/metrics-server/tar.gz/v0.3.6 && tar -xzf v0.3.6.tar.gz
+
 $ kubectl apply -f metrics-server-0.3.6/deploy/1.8+/
 
 nhutpm@nhutpm:~/terraform-practice02$ kubectl apply -f metrics-server-0.3.6/deploy/1.8+/
